@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b28">
+  <meta name="description" content="">
+  <title>SEA MC</title>
+  <style>
+    :root {
+      --bg: #071820;
+      --panel: #102a35;
+      --panel-2: #143541;
+      --text: #f2fbfc;
+      --muted: #9ab8c1;
+      --aqua: #54e1d0;
+      --blue: #4aa8ff;
+      --line: rgba(190, 236, 239, .13);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1100px, calc(100% - 36px)); margin-inline: auto; }
+    header {
+      height: 76px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: .06em; }
+nav { display: flex; gap: 27px; align-items: center; color: var(--muted); font-size: 13px; font-weight: 650; }
+    nav a:hover { color: var(--aqua); }
+    .server {
+      border: 1px solid rgba(84,225,208,.28); border-radius: 999px; padding: 9px 13px;
+      color: var(--aqua); font-size: 12px; font-weight: 750; letter-spacing: .02em;
+    }
+    .hero { padding: 76px 0 54px; display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
+    .eyebrow { color: var(--aqua); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    h1 { margin: 14px 0 17px; max-width: 650px; font-size: clamp(42px, 7vw, 76px); line-height: .99; letter-spacing: -.065em; }
+    h1 span { color: var(--aqua); }
+    .hero p { max-width: 510px; color: var(--muted); font-size: 16px; margin: 0; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 17px; border-radius: 10px; font-weight: 800; font-size: 13px; transition: transform .18s, border-color .18s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #06232a; background: var(--aqua); }
+    .btn-quiet { border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,.025); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin: 24px 0 20px; }
+    h2 { font-size: 27px; line-height: 1.1; letter-spacing: -.04em; margin: 7px 0 0; }
+    .section-note { color: var(--muted); font-size: 12px; }
+    .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .product {
+      padding: 19px; border-radius: 15px; border: 1px solid var(--line);
+      background: var(--panel);
+      min-height: 185px; display: flex; flex-direction: column; transition: transform .18s, border-color .18s;
+    }
+    .product:hover { transform: translateY(-3px); border-color: rgba(84,225,208,.38); }
+    .product h3 { font-size: 16px; margin: 0 0 4px; }
+    .product p { font-size: 12px; color: var(--muted); margin: 0; }
+    .product-bottom { margin-top: auto; padding-top: 17px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .price { font-size: 21px; font-weight: 850; letter-spacing: -.04em; }
+    .buy { font-size: 11px; color: var(--aqua); font-weight: 800; padding: 7px 10px; border: 1px solid rgba(84,225,208,.23); border-radius: 8px; background: transparent; cursor: pointer; }
+    .buy:hover { background: rgba(84,225,208,.09); }
+    .section { padding-bottom: 28px; }
+    .notice { margin: 18px 0 70px; border: 1px solid var(--line); border-radius: 14px; padding: 17px 19px; display: flex; gap: 13px; align-items: start; background: rgba(255,255,255,.02); }
+    .notice strong { display: block; font-size: 13px; margin-bottom: 3px; }
+    .notice p { margin: 0; color: var(--muted); font-size: 12px; }
+    footer { border-top: 1px solid var(--line); padding: 23px 0 30px; color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: #e7fffa; color: #06232a; padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 750; box-shadow: 0 10px 35px #0005; transition: .2s; z-index: 5; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding-top: 55px; }
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      nav { gap: 13px; } nav .server { display: none; }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: min(100% - 26px, 1100px); }
+      header { height: 66px; } .brand { font-size: 13px; }
+nav { font-size: 11px; gap: 10px; }
+      .hero { padding: 44px 0 35px; gap: 24px; }
+      h1 { font-size: 48px; }
+      .products { grid-template-columns: 1fr; }
+      .product { min-height: 160px; }
+      .section-head { align-items: start; flex-direction: column; gap: 6px; }
+    }
+.buy-notice[hidden] { display: none !important; }
+    .buy-notice {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; background: rgba(0, 0, 0, .78);
+    }
+    .buy-notice-card {
+      width: min(100%, 440px); padding: 26px; border-radius: 14px;
+      background: var(--panel); border: 1px solid var(--line);
+      box-shadow: 0 18px 60px rgba(0,0,0,.4); color: var(--text);
+    }
+    .buy-notice-card h2 { margin: 0 0 12px; font-size: 22px; }
+    .buy-notice-card p { line-height: 1.6; color: var(--muted); }
+    .discord-name { color: var(--text); font-weight: 800; overflow-wrap: anywhere; }
+    .buy-notice-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
+
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="brand" href="#" aria-label="SEA MC Store home"><strong>SEA MC</strong></a>
+    <nav aria-label="Main navigation">
+      <a href="#ranks">Ranks</a>
+      <a href="#coins">Coins</a>
+      <a href="#keys">Crate Keys</a>
+      <a class="server" href="#shop">Official Store</a>
+    </nav>
+  </header>
+
+  <main id="shop" class="wrap">
+    <section class="hero">
+      <div>
+        <h1>SEA MC</h1>
+        <p>Upgrade your SEA MC experience with exclusive ranks, in-game coins and crate keys. Pick your upgrade and get back to the fun.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ranks">Browse the store</a>
+          <button class="btn btn-quiet" type="button" id="copy-ip">Copy server IP</button>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="section" id="ranks">
+      <div class="section-head">
+        <div><div class="eyebrow">Stand out on the server</div><h2>Ranks</h2></div>
+        <div class="section-note">Choose your place in the crew.</div>
+      </div>
+      <div class="products">
+        <article class="product"><h3>Sea Rank</h3><p>Make a splash with the top rank.</p><div class="product-bottom"><span class="price">£10.00</span><button class="buy" data-item="Sea Rank">Select</button></div></article>
+        <article class="product"><h3>Beach Rank</h3><p>A fresh upgrade for your journey.</p><div class="product-bottom"><span class="price">£5.00</span><button class="buy" data-item="Beach Rank">Select</button></div></article>
+        <article class="product"><h3>Sandy Rank</h3><p>Your first step to something extra.</p><div class="product-bottom"><span class="price">£2.50</span><button class="buy" data-item="Sandy Rank">Select</button></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="coins">
+      <div class="section-head">
+        <div><div class="eyebrow">Stack up in-game currency</div><h2>Coins</h2></div>
+        <div class="section-note">More coins, more possibilities.</div>
+      </div>
+      <div class="products">
+        <article class="product"><h3>1,000 Coins</h3><p>A little boost to get going.</p><div class="product-bottom"><span class="price">£0.50</span><button class="buy" data-item="1,000 Coins">Select</button></div></article>
+        <article class="product"><h3>2,500 Coins</h3><p>Give your balance a lift.</p><div class="product-bottom"><span class="price">£1.50</span><button class="buy" data-item="2,500 Coins">Select</button></div></article>
+        <article class="product"><h3>5,000 Coins</h3><p>A bigger boost for your plans.</p><div class="product-bottom"><span class="price">£2.50</span><button class="buy" data-item="5,000 Coins">Select</button></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="keys">
+      <div class="section-head">
+        <div><div class="eyebrow">What's inside?</div><h2>Crate Keys</h2></div>
+        <div class="section-note">Unlock a little mystery.</div>
+      </div>
+      <div class="products">
+        <article class="product"><h3>Sandy Key</h3><p>Open a sandy crate.</p><div class="product-bottom"><span class="price">£0.35</span><button class="buy" data-item="Sandy Key">Select</button></div></article>
+        <article class="product"><h3>Emerald Key</h3><p>Try your luck with an emerald crate.</p><div class="product-bottom"><span class="price">£0.50</span><button class="buy" data-item="Emerald Key">Select</button></div></article>
+        <article class="product"><h3>Elite Key</h3><p>One key for an elite crate.</p><div class="product-bottom"><span class="price">£0.75</span><button class="buy" data-item="Elite Key">Select</button></div></article>
+      </div>
+    </section>
+
+    <aside class="notice">
+      
+      
+    </aside>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> SEA MC Store</span>
+      <span>seamc.lagfree.me · Not affiliated with Mojang or Microsoft.</span>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Replace these with your real server address and checkout URL before publishing.
+    const SERVER_IP = "seamc.lagfree.me";
+    const CHECKOUT_URL = ""; // Example: "https://your-store.example/checkout"
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    document.getElementById("copy-ip").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(SERVER_IP);
+        showToast("Server address copied: " + SERVER_IP);
+      } catch {
+        showToast("Server address: " + SERVER_IP);
+      }
+    });
+
+    
+    const buyNotice = document.getElementById('buyNotice');
+    const buyNoticeItem = document.getElementById('buyNoticeItem');
+    const closeBuyNotice = document.getElementById('closeBuyNotice');
+
+    document.querySelectorAll('.buy').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (buyNoticeItem) buyNoticeItem.textContent = button.dataset.item || 'this product';
+        if (buyNotice) buyNotice.hidden = false;
+      });
+    });
+
+    if (closeBuyNotice) {
+      closeBuyNotice.addEventListener('click', () => {
+        if (buyNotice) buyNotice.hidden = true;
+      });
+    }
+    if (buyNotice) {
+      buyNotice.addEventListener('click', (event) => {
+        if (event.target === buyNotice) buyNotice.hidden = true;
+      });
+    }
+
+    // Purchase buttons show the temporary Discord-contact notice.
+    document.addEventListener('click', function (event) {
+      const buyButton = event.target.closest('.buy');
+      if (buyButton) {
+        const notice = document.getElementById('buyNotice');
+        const item = document.getElementById('buyNoticeItem');
+        if (item) item.textContent = 'Selected product: ' + (buyButton.dataset.item || 'product') + '.';
+        if (notice) notice.hidden = false;
+        return;
+      }
+      if (event.target.closest('#closeBuyNotice') || (event.target.id === 'buyNotice')) {
+        const notice = document.getElementById('buyNotice');
+        if (notice) notice.hidden = true;
+      }
+    });
+
+</script>
+
+  <div class="buy-notice" id="buyNotice" hidden role="dialog" aria-modal="true" aria-labelledby="buyNoticeTitle">
+    <div class="buy-notice-card">
+      <h2 id="buyNoticeTitle">Purchases temporarily unavailable</h2>
+      <p id="buyNoticeItem"></p>
+      <p>Please contact <span class="discord-name">nwalfie._.</span> on Discord if you want to buy any of our products while we fix an API.</p>
+      <div class="buy-notice-actions">
+        <button class="btn btn-primary" id="closeBuyNotice" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
